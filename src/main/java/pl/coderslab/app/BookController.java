@@ -7,23 +7,43 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/books")
 public class BookController {
 
-    private final BookDao bookDao;
+    @Autowired
+    private BookDao bookDao;
 
     @Autowired
-    public BookController(BookDao bookDao) {
-        this.bookDao = bookDao;
-    }
+    private PublisherDao publisherDao;
+
+    @Autowired
+    private AuthorDao authorDao;
+
 
     @GetMapping("/create")
     @ResponseBody
     public String create() {
         Book book = new Book();
-        book.setAuthor("Bruce Eckel");
         book.setTitle("Thinking in Java");
+
+        Publisher publisher = new Publisher();
+        publisher.setName("Wydawca 1");
+        book.setPublisher(publisher);
+
+        List<Author> list = new ArrayList<>();
+        Author author = new Author();
+        author.setFirstName("Bruce");
+        author.setLastName("Eckel");
+
+        list.add(author);
+        book.setAuthors(list);
+
+        authorDao.create(author);
+        publisherDao.create(publisher);
         bookDao.create(book);
         return "Dodano książkę";
     }

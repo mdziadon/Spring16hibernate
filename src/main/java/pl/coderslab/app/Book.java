@@ -1,6 +1,7 @@
 package pl.coderslab.app;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -11,9 +12,14 @@ public class Book {
     private Long id;
     @Column(name="mytitle")
     private String title;
-    private String author;
+
+    @ManyToMany
+    private List<Author> authors;
+
     private double rating;
-    private String publisher;
+
+    @ManyToOne
+    private Publisher publisher;
     private String description;
 
     public Long getId() {
@@ -32,12 +38,12 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public double getRating() {
@@ -48,11 +54,11 @@ public class Book {
         this.rating = rating;
     }
 
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 
@@ -69,9 +75,7 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
                 ", rating=" + rating +
-                ", publisher='" + publisher + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
