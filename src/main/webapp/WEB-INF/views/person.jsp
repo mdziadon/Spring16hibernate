@@ -1,3 +1,5 @@
+<%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -5,29 +7,29 @@
 </head>
 <body>
 
-<form method="post">
+<form:form method="post" modelAttribute="person">
 
     <label>Login:
-        <input type="text" name="login">
+        <from:input type="text" path="login"/>
     </label>
 
     <br><br>
 
     <label>Password:
-        <input type="password" name="password">
+        <form:password path="password"/>
     </label>
 
     <br><br>
 
     <label>Email:
-        <input type="email" name="email">
+        <form:input type="email" path="email"/>
     </label>
 
     <br><br>
 
     <input type="submit" value="Save"/>
 
-</form>
+</form:form>
 
 </body>
 </html>
