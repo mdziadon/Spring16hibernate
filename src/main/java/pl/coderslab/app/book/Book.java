@@ -1,4 +1,7 @@
-package pl.coderslab.app;
+package pl.coderslab.app.book;
+
+import pl.coderslab.app.author.Author;
+import pl.coderslab.app.publisher.Publisher;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package pl.coderslab.app;
+package pl.coderslab.app.publisher;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package pl.coderslab.app;
+package pl.coderslab.app.person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
