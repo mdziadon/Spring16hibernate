@@ -76,4 +76,13 @@ public class BookController {
         bookDao.delete(id);
         return "Ksiazka usunieta";
     }
+
+
+    @GetMapping
+    @ResponseBody
+    public String list() {
+        List<Book> books = bookDao.findAll();
+        return books.toString();
+    }
+
 }

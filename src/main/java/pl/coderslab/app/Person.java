@@ -55,4 +55,13 @@ public class Person {
     public void setDetails(PersonDetails details) {
         this.details = details;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
