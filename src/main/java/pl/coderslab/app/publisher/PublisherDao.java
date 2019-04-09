@@ -5,9 +5,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 @Repository
-@Transactional
 public class PublisherDao {
 
     @PersistenceContext
@@ -31,6 +32,11 @@ public class PublisherDao {
         if (publisher != null) {
             entityManager.remove(publisher);
         }
+    }
+
+    public List<Publisher> findAll(){
+        Query query = entityManager.createQuery("select p from Publisher p");
+        return query.getResultList();
     }
     
 }

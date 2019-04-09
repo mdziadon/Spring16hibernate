@@ -1,7 +1,6 @@
 package pl.coderslab.app.book;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,7 +8,6 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
-@Transactional
 public class BookDao {
 
     @PersistenceContext
@@ -36,7 +34,7 @@ public class BookDao {
     }
 
     public List<Book> findAll() {
-        Query query = entityManager.createQuery("select b from Book b join fetch b.authors");
+        Query query = entityManager.createQuery("select b from Book b");
         List<Book>  books = query.getResultList();
         return books;
     }
