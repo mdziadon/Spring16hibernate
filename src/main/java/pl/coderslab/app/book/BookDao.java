@@ -39,4 +39,10 @@ public class BookDao {
         return books;
     }
 
+    public List<Book> findAllPropositions() {
+        Query query = entityManager.createQuery("select b from Book b where b.proposition = true");
+        List<Book>  books = query.getResultList();
+        return books;
+    }
+
 }

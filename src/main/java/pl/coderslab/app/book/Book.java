@@ -20,27 +20,30 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 5)
+    @Size(min = 5, groups = {BookValidationGroup.class, PropositionValidationGroup.class})
     @Column(name="mytitle")
     private String title;
 
-    @NotEmpty
+    @NotEmpty(groups = BookValidationGroup.class)
     @ManyToMany
     private List<Author> authors;
 
-    @Min(1)
-    @Max(10)
+    @Min(value = 1, groups = BookValidationGroup.class)
+    @Max(value = 10, groups = BookValidationGroup.class)
     private double rating;
 
-    @NotNull
+    @NotNull(groups = BookValidationGroup.class)
     @ManyToOne
     private Publisher publisher;
 
-    @Size(max = 600)
+    @NotBlank(groups = PropositionValidationGroup.class)
+    @Size(max = 600, groups = {BookValidationGroup.class, PropositionValidationGroup.class})
     private String description;
 
-    @Min(2)
+    @Min(value = 2, groups = BookValidationGroup.class)
     private int pages;
+
+    private boolean proposition;
 
     public Long getId() {
         return id;
@@ -96,6 +99,14 @@ public class Book {
 
     public void setPages(int pages) {
         this.pages = pages;
+    }
+
+    public boolean isProposition() {
+        return proposition;
+    }
+
+    public void setProposition(boolean proposition) {
+        this.proposition = proposition;
     }
 
     @Override

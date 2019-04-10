@@ -5,18 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.app.author.Author;
 import pl.coderslab.app.author.AuthorService;
 import pl.coderslab.app.publisher.Publisher;
 import pl.coderslab.app.publisher.PublisherService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/books")
-public class BookController {
+@RequestMapping("/propositions")
+public class PropositionController {
 
     @Autowired
     private BookService bookService;
@@ -28,6 +30,13 @@ public class BookController {
     private AuthorService authorService;
 
 
+    @GetMapping("/list")
+    public String getList(Model model) {
+        List<Book> propositions = bookService.findAllPropositions();
+        model.addAttribute("propositions", propositions);
+        return "propositionList";
+    }
+
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("book", new Book());
@@ -35,41 +44,13 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute @Validated(BookValidationGroup.class) Book book, BindingResult result) {
+    public String add(@ModelAttribute @Validated(PropositionValidationGroup.class) Book book, BindingResult result) {
         if (result.hasErrors()) {
             return "book";
         }
+        book.setProposition(true);
         bookService.create(book);
         return "redirect:list";
-    }
-
-    @GetMapping("/list")
-    public String list(Model model){
-        List<Book> books = bookService.findAll();
-        model.addAttribute("books", books);
-        return "bookList";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        bookService.delete(id);
-        return "redirect:../list";
-    }
-
-    @GetMapping("/update/{id}")
-    public String update(@PathVariable Long id, Model model) {
-        Book book = bookService.readWithAuthors(id);
-        model.addAttribute("book", book);
-        return "book";
-    }
-
-    @PostMapping("/update/{id}")
-    public String update(@ModelAttribute @Validated(BookValidationGroup.class) Book book, BindingResult result) {
-        if (result.hasErrors()) {
-            return "book";
-        }
-        bookService.update(book);
-        return "redirect:../list";
     }
 
     @ModelAttribute("publishers")
@@ -81,4 +62,5 @@ public class BookController {
     public List<Author> getAuthors() {
         return authorService.findAll();
     }
+
 }
