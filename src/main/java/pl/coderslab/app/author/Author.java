@@ -3,6 +3,7 @@ package pl.coderslab.app.author;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.pl.PESEL;
+import pl.coderslab.app.validation.Age;
 
 import javax.persistence.*;
 
@@ -25,6 +26,9 @@ public class Author {
 
     @Email
     private String email;
+
+    @Age(min = 20)
+    private Integer yearOfBirth;
 
     @Transient
     private String fullName;
@@ -71,5 +75,13 @@ public class Author {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(Integer yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
     }
 }

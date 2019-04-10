@@ -3,12 +3,14 @@ package pl.coderslab.app.book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.app.author.Author;
 import pl.coderslab.app.author.AuthorService;
 import pl.coderslab.app.publisher.Publisher;
 import pl.coderslab.app.publisher.PublisherService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -32,7 +34,10 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute Book book) {
+    public String add(@ModelAttribute @Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
+            return "book";
+        }
         bookService.create(book);
         return "redirect:list";
     }
@@ -58,7 +63,10 @@ public class BookController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@ModelAttribute Book book) {
+    public String update(@ModelAttribute @Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
+            return "book";
+        }
         bookService.update(book);
         return "redirect:../list";
     }

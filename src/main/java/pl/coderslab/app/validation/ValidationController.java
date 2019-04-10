@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import pl.coderslab.app.author.Author;
 import pl.coderslab.app.book.Book;
 
 import javax.validation.ConstraintViolation;
@@ -20,13 +21,13 @@ public class ValidationController {
 
     @GetMapping("/validate")
     public String validate(Model model) {
-        Book book = new Book();
-        Set<ConstraintViolation<Book>> set = validator.validate(book);
+        Author author = new Author();
+        Set<ConstraintViolation<Author>> set = validator.validate(author);
 
         List<TestError> errors = new ArrayList<>();
 
         if(!set.isEmpty()) {
-            for (ConstraintViolation<Book> constraint : set) {
+            for (ConstraintViolation<Author> constraint : set) {
                 String path = constraint.getPropertyPath().toString();
                 String message = constraint.getMessage();
                 TestError error = new TestError(path, message);

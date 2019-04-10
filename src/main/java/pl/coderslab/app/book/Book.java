@@ -20,7 +20,6 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Size(min = 5)
     @Column(name="mytitle")
     private String title;
