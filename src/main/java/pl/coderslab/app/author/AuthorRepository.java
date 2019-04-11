@@ -13,6 +13,6 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     Author findByPesel(String pesel);
 
     List<Author> findByLastName(String lastName);
-    
+
 
 }
