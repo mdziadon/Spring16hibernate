@@ -30,4 +30,14 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findByRating(double rating);
 
     Book findFirstByCategoryIdOrderByTitle(Long id);
+
+    @Query("select b from Book b where b.rating between ?1 and ?2")
+    List<Book> findByRatingBetweenQuery(double min, double max);
+
+    @Query("select b from Book b where b.publisher.id = :publisherId")
+    List<Book> findByPublisherQuery(@Param("publisherId") Long id);
+
+    @Query(value = "select * from books where category_id = ?1 order by mytitle asc limit 1", nativeQuery = true)
+    Book findFirstByCategoryIdOrderByTitleQuery(Long id);
+
 }
