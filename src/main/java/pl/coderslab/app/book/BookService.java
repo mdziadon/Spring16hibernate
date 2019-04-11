@@ -12,36 +12,36 @@ import java.util.List;
 public class BookService {
 
     @Autowired
-    private BookDao bookDao;
+    private BookRepository bookRepository;
 
     public void create(Book book) {
-        bookDao.create(book);
+        bookRepository.save(book);
     }
 
     public Book read(Long id) {
-        return bookDao.read(id);
+        return bookRepository.findById(id).orElse(null);
     }
 
     public Book readWithAuthors(Long id) {
-        Book book = bookDao.read(id);
+        Book book = read(id);
         Hibernate.initialize(book.getAuthors());
         return book;
     }
 
     public void update(Book book) {
-        bookDao.update(book);
+        bookRepository.save(book);
     }
 
     public void delete(Long id) {
-        bookDao.delete(id);
+        bookRepository.deleteById(id);
     }
 
     public List<Book> findAll() {
-        return bookDao.findAll();
+        return bookRepository.findAll();
     }
 
     public List<Book> findAllPropositions() {
-        return bookDao.findAllPropositions();
+        return bookRepository.findByProposition(true);
     }
 
 }

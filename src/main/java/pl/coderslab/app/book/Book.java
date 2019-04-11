@@ -3,6 +3,7 @@ package pl.coderslab.app.book;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.coderslab.app.author.Author;
+import pl.coderslab.app.category.Category;
 import pl.coderslab.app.publisher.Publisher;
 
 import javax.persistence.*;
@@ -44,6 +45,10 @@ public class Book {
     private int pages;
 
     private boolean proposition;
+
+    @ManyToOne
+    private Category category;
+
 
     public Long getId() {
         return id;
