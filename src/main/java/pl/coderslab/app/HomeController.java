@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.app.book.Book;
 import pl.coderslab.app.book.BookRepository;
 
-import java.util.List;
-
 @Controller
 public class HomeController {
 
@@ -18,7 +16,7 @@ public class HomeController {
     @GetMapping("/")
     @ResponseBody
     public String test() {
-        List<Book> books = bookRepository.findByCategoryId(1L);
-        return books.toString();
+        Book book = bookRepository.findFirstByCategoryIdOrderByTitle(1l);
+        return book.toString();
     }
 }
