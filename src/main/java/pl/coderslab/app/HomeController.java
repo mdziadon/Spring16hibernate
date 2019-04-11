@@ -16,7 +16,7 @@ public class HomeController {
     @GetMapping("/")
     @ResponseBody
     public String test() {
-        Book book = bookRepository.findFirstByCategoryIdOrderByTitle(1l);
-        return book.toString();
+        bookRepository.resetRating(0);
+        return "rating zresetowany";
     }
 }
