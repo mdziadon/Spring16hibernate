@@ -68,10 +68,12 @@
                     <form:errors path="authors" element="div" cssClass="error"/>
                 </div>
 
-                <div class="form-group">
-                    <label for="descriptionId">Description:</label>
-                    <form:textarea path="description" cols="60" rows="3" class="form-control" id="descriptionId"/>
-                    <form:errors path="description" element="div" cssClass="error"/>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="descriptionId">Description:</label>
+                        <form:textarea path="description" cols="60" rows="3" class="form-control" id="descriptionId"/>
+                        <form:errors path="description" element="div" cssClass="error"/>
+                    </div>
                 </div>
 
                 <input type="submit" value="Save">
