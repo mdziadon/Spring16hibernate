@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @Transactional
@@ -36,5 +37,13 @@ public class FileService {
 
     public DBFile getFile(Long id) throws FileNotFoundException {
         return fileRepository.findById(id).orElseThrow(() -> new FileNotFoundException("File not found with id " + id));
+    }
+
+    public List<DBFile> findAll() {
+        return fileRepository.findAll();
+    }
+
+    public void delete(Long id) {
+        fileRepository.deleteById(id);
     }
 }
