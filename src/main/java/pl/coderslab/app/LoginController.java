@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.coderslab.app.user.User;
 import pl.coderslab.app.user.UserRepository;
 
 @Controller
+@SessionAttributes("userSession")
 public class LoginController {
 
     @Autowired
@@ -24,19 +26,16 @@ public class LoginController {
 
     @PostMapping("/")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
-        boolean isLogged = false;
-        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
-            model.addAttribute("isLogged", isLogged);
+        User user = userRepository.findByUsername(username);
+        model.addAttribute("isLogged", false);
+        if (user == null) {
             return "login";
         }
-        User user = userRepository.findByUsername(username);
-        if (user != null) {
-            isLogged = BCrypt.checkpw(password, user.getPassword());
-        }
-        if (isLogged) {
+        if (BCrypt.checkpw(password, user.getPassword())) {
+            model.addAttribute("userSession", user);
+            model.addAttribute("isLogged", true);
             return "redirect:books/list";
         }
-        model.addAttribute("isLogged", isLogged);
         return "login";
     }
 
