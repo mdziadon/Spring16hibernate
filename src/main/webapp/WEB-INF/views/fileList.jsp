@@ -55,7 +55,7 @@
                         <td>${file.fileName}</td>
                         <td>${file.fileType}</td>
                         <td>
-                            <a href="/files/${file.id}" class="btn btn-success">Download</a>
+                            <a href="/files/download/${file.id}" class="btn btn-success">Download</a>
                             <a href="#" onclick="confirmDelete(${file.id}, '${file.fileName}')" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>

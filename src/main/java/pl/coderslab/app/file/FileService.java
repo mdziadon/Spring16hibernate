@@ -46,4 +46,8 @@ public class FileService {
     public void delete(Long id) {
         fileRepository.deleteById(id);
     }
+
+    public DBFile findById(Long id) {
+        return fileRepository.findById(id).orElse(null);
+    }
 }
